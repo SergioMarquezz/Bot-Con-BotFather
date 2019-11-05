@@ -33,57 +33,65 @@ logger = logging.getLogger(__name__)
 # Define a few command handlers. These usually take the two arguments bot and
 # update. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
-    """Send a message when the command /start is issued."""
-    update.message.reply_text('Hi!')
+    update.message.reply_text('Hola bienvenido al bot de ayuda para el cáncer de mama, ¿cuál es tu duda? Elige uno de los siguientes comandos /concepto,/sintomas,/recomendaciones')
 
 
-def help(update, context):
-    """Send a message when the command /help is issued."""
-    update.message.reply_text('Help!')
+def concepto(update, context):
+    update.message.reply_text("El cáncer de mama es una enfermedad en la cual las células de la mama se multiplican sin control. Existen distintos tipos de cáncer de mama. El tipo de cáncer de mama depende de qué células de la mama se vuelven cancerosas")
+    update.message.reply_text("¿Quieres ver los tipos de cancer?")
+
+   
+def sintomas(update, context):
+    update.message.reply_text("Los signos de advertencia del cáncer de mama pueden ser distintos en cada persona. Algunas personas no tienen ningún tipo de signos o síntomas.")
+    update.message.reply_text("Algunas señales de advertencia del cáncer de mama son:")
+    update.message.reply_text("1. Aumento del grosor o hinchazón de una parte de la mama")
+    update.message.reply_text("2. Irritación o hundimientos en la piel de la mama")
+    update.message.reply_text("3. Hundimiento del pezón o dolor en esa zona")
+    update.message.reply_text("4. Secreción del pezón, que no sea leche, incluso de sangre")
+    update.message.reply_text("5. Dolor en cualquier parte de la mama")
+
+def recomendaciones(update, context):
+     update.message.reply_text("Para la lucha contra el cáncer de mama es recomendable la "+
+     "prolongación de la lactancia materna más allá de los seis meses e incluso por encima del año,seguir una alimentación variada y equilibrada bajo el patrón de la dieta mediterránea"+
+     "mantener un peso saludable, evitar el sobrepeso y la obesidad,prescindir del consumo de alcohol,evitar la terapia hormonal sustitutiva de la menopausia. ")
 
 
-def echo(update, context):
-    """Echo the user message."""
-    update.message.reply_text(update.message.text)
+def tipos(update, context):
+     
+     if(update.message.text == "SI" or update.message.text =="si" or update.message.text =="Si"):
+            update.message.reply_text("Los tipos más comunes de cáncer de mama son: Carcinoma ductal infiltrante y Carcinoma lobulillar infiltrante")
+            update.message.reply_text("Elije un tipo /ductal ó /lobulillar")
+
+def ductal(update, context):
+    update.message.reply_text("Las células cancerosas se multiplican fuera de los conductos e invaden otras partes del tejido mamario. Estas células cancerosas invasoras también pueden diseminarse, o formar metástasis, en otras partes del cuerpo")
+
+def lobulillar(update, context):
+    update.message.reply_text("Las células cancerosas se diseminan de los lobulillos a los tejidos mamarios cercanos. Estas células cancerosas invasoras también pueden diseminarse a otras partes del cuerpo.")
 
 
 def error(update, context):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
-def pizza(update, context):
-    if(update.message.text.upper().find("MANZANAS VERDES") > 0):
-        update.message.reply_text("Prefiero comer pizza")
-
-def sumar(update,context):
-    try:
-        numero1 = int(context.args[0])
-        numero2 = int(context.args[1])
-
-        suma = numero1 + numero2
-
-        update.message.reply_text("La suma es "+str(suma))
-
-    except (ValueError):
-        update.message.reply_text("por favor utilice dos numeros")
-
 def main():
-    """Start the bot."""
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
-    updater = Updater("900553574:AAF44NgSdJHDehnIeFFBOOxPo3Ec8J9ZFGo", use_context=True)
+    updater = Updater("1055151698:AAGrlRXwnKp4Mwhg_sYxesrMigItwCKIp4A", use_context=True)
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
 
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(CommandHandler("help", help))
-    dp.add_handler(CommandHandler("sumar", sumar))
+    dp.add_handler(CommandHandler("sintomas", sintomas))
+    dp.add_handler(CommandHandler("recomendaciones", recomendaciones))
+    dp.add_handler(CommandHandler("concepto", concepto))
+    dp.add_handler(CommandHandler("ductal", ductal))
+    dp.add_handler(CommandHandler("lobulillar", lobulillar))
 
     # on noncommand i.e message - echo the message on Telegram
-    dp.add_handler(MessageHandler(Filters.text, pizza))
+    dp.add_handler(MessageHandler(Filters.text, tipos))
 
     # log all errors
     dp.add_error_handler(error)
@@ -95,7 +103,6 @@ def main():
     # SIGTERM or SIGABRT. This should be used most of the time, since
     # start_polling() is non-blocking and will stop the bot gracefully.
     updater.idle()
-
 
 if __name__ == '__main__':
     main()
