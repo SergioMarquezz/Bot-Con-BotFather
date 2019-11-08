@@ -46,7 +46,7 @@ def sintomas(update, context):
     update.message.reply_text("Algunas señales de advertencia del cáncer de mama son:")
     update.message.reply_text("1. Aumento del grosor o hinchazón de una parte de la mama")
     update.message.reply_text("2. Irritación o hundimientos en la piel de la mama")
-    update.message.reply_text("3. Hundimiento del pezón o dolor en esa zona")
+    update.message.reply_text("3. Hundimiento del pezón o dolor epn esa zona")
     update.message.reply_text("4. Secreción del pezón, que no sea leche, incluso de sangre")
     update.message.reply_text("5. Dolor en cualquier parte de la mama")
 
